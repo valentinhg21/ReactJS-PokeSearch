@@ -1,3 +1,7 @@
+### Description
+
+This is a project where you search all the characters of Pikachu you have to enter the name of character to search your description
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
