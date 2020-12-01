@@ -5,7 +5,7 @@ This is a project where you search all the characters of Pikachu you have to ent
 I used the Api From https://pokeapi.co/api/v2/
 
 Preview
-https://distracted-rosalind-560d6d.netlify.app/
+https://pokesearchjs.netlify.app
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
