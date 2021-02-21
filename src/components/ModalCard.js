@@ -4,11 +4,11 @@ import Button from 'react-bootstrap/Button';
 import Progress from './Progress'
 const ModalCard = ({show, handleClose, resultado}) => {
     //Extraer datos 
-    const {stats} = resultado;
+    const {stats, name} = resultado;
     return (
         <Modal show={show} onHide={handleClose} centered >
          <Modal.Header closeButton>
-          <Modal.Title >Pikachu</Modal.Title>
+          <Modal.Title >{name}</Modal.Title>
          </Modal.Header>
         <Modal.Body>
             <Progress variante="success" porcentaje={stats[0].base_stat} titulo={'Vida'}/>
