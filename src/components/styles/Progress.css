@@ -1,0 +1,10 @@
+.progress__bar{
+    display: inline;
+
+}
+
+.progress__bar h5{
+    font-size: 15px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

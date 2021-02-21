@@ -1,72 +1,104 @@
-import React, { useState } from 'react';
-import Search from './components/Search.js';
-import PokeItem from './components/PokeItem.js'
-import { fetchPokemon } from './services/getPokemon.js'
-import logo from './img/Pokemon.png'
-import 'bootstrap/dist/css/bootstrap.min.css';
-
+import React, { useState, useEffect } from 'react';
+import Axios from 'axios'
+import Pokemon from './img/Pokemon.png'
+import Formulario from './components/Formulario.js'
+import Error from './components/Error.js'
+import Loading from './components/Loading.js'
+import PokemonItem from './components/PokemonItem'
 import './App.css'
 
-function App() {
-    // Estados del pokemon
-    const [ pokemon, setPokemon ] = useState('');
-    // Estado del loading
-    const [ loading, setLoading ] = useState(false);
-    // Estado del loading
-    const [ error, setError ] = useState(false);
-    // Estado del Error Mensaje
-    const [ errorMsg, setErrorMsg ] = useState('');
-    // Funcion para recibir un pokemon
-    const getPokemon = async (query) => {
-      if (!query) {
-        setErrorMsg('Debes ingresar un Pokemon')
-        setError(true);
-        return;
-      }
-    // Loading is True cuando trata de buscar la respuesta al fetch
-    setLoading(true);
+import 'bootstrap/dist/css/bootstrap.min.css'
 
-    setTimeout(async () => {
-      try{
-        // Manda un Fetch a la API de PokeAPI
-        const response = await fetchPokemon(query);
-        // Guardo la respuesta en un json en la constante de results
-        const results = await response.json();
-        // Lo guardo en el estado setPokemon
-        // console.log(results)
-        setPokemon(results);
-        setLoading(false);
-      } catch(error){
-        setLoading(false);
-        setError(true);
-        setErrorMsg('El pokemon ingresado no es correcto.')
+
+function App() {
+
+  //Estado de la busqueda
+  const [ busqueda, guardarBusqueda ] = useState({
+    pokemon: ''
+  })
+
+  //Estado de la consulta
+  const [ consultar, guardarConsultar ] = useState(false)
+
+  //Estado del resultado
+  const [ resultado, guardarResultado ] = useState({});
+
+  //Estado del error
+  const [ error, guardarError ] = useState(false);
+
+  //Estado del Cargando
+  const [cargando, guardarCargando ] = useState(false)
+
+  //Extraemos pokemon
+  const{ pokemon } = busqueda
+  
+  //Letras en minusculas 
+  const poke = pokemon.toLowerCase().replace(/\s+/g, '')
+
+
+  useEffect(() => {
+
+        //Consultar API 
+        const consultarAPI = async () => {
+          
+          
+          try{
+              if(consultar){
+                const url = `https://pokeapi.co/api/v2/pokemon/${poke}`;
+                const resultado = await Axios.get(url);
+                guardarCargando(true)
+
+                setTimeout(() => {
+                  guardarCargando(false)
+                  guardarResultado(resultado.data);
+                  guardarConsultar(false);
+                  
+                  guardarError(false)
+                },1500)
+              }
+
+          }catch(err){
+            guardarError(true)
+          }
       }
-    }, 1000)
-  }
+
+    //Si no hay errores, consulto a la API
+    consultarAPI()
+    guardarConsultar(false)
+    
+    // eslint-disable-next-line
+  },[consultar])
+
 
 
   return (
-    <div className="container  container_padre">
-        <img src={logo} alt='logo-pokemon' className="img-fluid logo mt-5"/>
-          { error ? <div className="alert alert-danger">{errorMsg}</div> : null }
-        <Search getPokemon={getPokemon} />
-        {loading ?
-          <div className="spinner-container">
-            <div className="spinner-border text-light" role="status">
-              <span className="sr-only">Loading...</span>
+    <>
+        <div className="container-fluid bg-dark p-1">
+          <h5 className="text-center text-light">Encuentra todos los pokemones aquí!</h5>
+        </div>
+        <div className="container app">
+            <div className="imagen__contenedor">
+             <img className="logo" src={Pokemon} alt=""/>
             </div>
-          </div>
-         :null }
-        {!loading && pokemon ? (
-            <PokeItem
-            name={pokemon.name}
-            sprite={pokemon.sprites.front_default}
-            abilities = {pokemon.abilities}
-            stats = {pokemon.stats}
-            types={pokemon.types}
-            />
-        ) : null  }
-    </div>
+            {error ? (<Error mensaje="El pokemon no existe!"/>) : null }
+              <Formulario 
+                  busqueda = { busqueda }
+                  guardarBusqueda = {guardarBusqueda}
+                  guardarConsultar={guardarConsultar}
+                />
+              {cargando ?(<Loading/>) : null}
+              {!cargando && busqueda ? (
+                  <div className="d-flex justify-content-center w-100  align-items-center">
+                     <PokemonItem
+                        resultado={resultado}
+                     /> 
+                </div>
+              ) : null}
+        </div>
+        <div className="container-fluid bg-dark footer">
+          <h5 className="text-center text-light">Creado por Valentin Gutiérrez</h5>
+        </div>
+    </>
   );
 }
 
