@@ -1,6 +1,6 @@
 ### Description
 
-Esto es un proyecto donde encuentras todos los personajes de pokemon. Lo único que tienes que hacer es ingresar su nombre y darle al click buscar o presionar la tecla enter y te mostrara la descripción del pokemon buscador.
+Esto es un proyecto donde encuentras todos los personajes de pokemon. Lo único que tienes que hacer es ingresar su nombre y darle al click buscar o presionar la tecla enter y te mostrara la descripción del personaje buscado.
 
 API usada: https://pokeapi.co/api/v2/
 
