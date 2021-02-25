@@ -1,10 +1,10 @@
 ### Description
 
-This is a project where you search all the characters of Pokemon you have to enter the name of character to search its description.
+Esto es un proyecto donde encuentras todos los personajes de pokemon. Lo único que tienes que hacer es ingresar su nombre y darle al click buscar o presionar la tecla enter y te mostrara la descripción del pokemon buscador.
 
-I used the Api From https://pokeapi.co/api/v2/
+API usada: https://pokeapi.co/api/v2/
 
-Preview
+Vizualiación:
 https://pokesearchjs.netlify.app
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
