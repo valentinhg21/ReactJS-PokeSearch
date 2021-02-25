@@ -4,7 +4,7 @@ Esto es un proyecto donde encuentras todos los personajes de pokemon. Lo único 
 
 API usada: https://pokeapi.co/api/v2/
 
-Vizualiación:
+Visualización:
 https://pokesearchjs.netlify.app
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
